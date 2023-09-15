@@ -1,0 +1,13 @@
+{% extends "main.html"%}
+{%block title%}DWS{%endblock%}
+{%block content%}
+{% if user.is_authenticated %}
+    <p>личный кабинет</p>
+    <a href="{% url 'log_out'%}">Logout</a>
+{% else %}
+    <a href="{% url 'log_in'%}">Login</a>
+    <a href="{% url 'registration'%}">Registration</a>
+{% endif %}
+    <p>корзина</p>
+<!--ДОДЕЛАТЬ-->
+{%endblock%}
