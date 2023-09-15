@@ -10,4 +10,13 @@
 {% endif %}
     <p>корзина</p>
 <!--ДОДЕЛАТЬ-->
+{% for engine in dws %}
+<h5>Название двигателя: {{ engine.goods_name }} </h5>
+<p>Артикул: {{ engine.goods_id }}</p>
+<p>Производитель: {{ engine.manufacturer}}</p>
+<p>Применяемость: {{ engine.transport_model }}</p>
+<p>Категория: {{ engine.category }}</p>
+<p>Цена: {{ engine.price }}</p>
+<p>Фото: <img src="{{ engine.image.url }}"></p>
+{% endfor %}
 {%endblock%}

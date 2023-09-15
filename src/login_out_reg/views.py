@@ -3,11 +3,14 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from dws_site.models import Dws
+
 
 # Create your views here.
 def aaa(request):
     if request.method == "GET":
-        return render(request, "index.html")
+        data = {"dws": Dws.objects.all()}
+        return render(request, "index.html", context=data)
 
 
 def registration(request):
