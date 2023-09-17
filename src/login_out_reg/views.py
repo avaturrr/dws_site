@@ -3,14 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from dws_site.models import Dws
-
 
 # Create your views here.
-def aaa(request):
-    if request.method == "GET":
-        data = {"dws": Dws.objects.all()}
-        return render(request, "index.html", context=data)
 
 
 def registration(request):
@@ -33,7 +27,6 @@ def log_in(request):
         return render(request, "login.html", {"form": form_log})
     else:
         form_log = AuthenticationForm(data=request.POST)
-        print(f"!!!!!!!!!!!!!!{form_log}!!!!!!!!!!!{form_log.get_user()}")
         if form_log.is_valid():
             login(request, form_log.get_user())
         return redirect("aaa")

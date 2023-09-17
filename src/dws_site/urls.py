@@ -15,13 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
-from django.template.context_processors import static
-from django.urls import path, include
+from django.conf.urls.static import static
+from django.urls import path
+
+from dws_site.views import show_goods_category, home_page
 
 urlpatterns = [
-
+    path("", home_page, name="home_page"),
+    path('<slug:category_slug>/', show_goods_category, name='show_goods_category'),
 ]
-# добавить сюда урлы для картинки (перенести)
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
