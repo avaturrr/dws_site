@@ -18,3 +18,21 @@ def show_goods_category(request, category_slug):
         category = Category.objects.get(slug=category_slug)
         data = {"dwses": category.goods.all(), "categories": Category.objects.all()}
         return render(request, "index.html", context=data)
+
+
+def detail_good(request, category_slug, dws_slug, dws_id):
+    if request.method == "GET":
+        data = {"categories": Category.objects.all(), "dws_item": Dws.objects.get(id=dws_id)}
+        return render(request, "detail_good.html", context=data)
+
+
+def payment(request):
+    return render(request, "payment.html")
+
+
+def about_us(request):
+    return render(request, "about_us.html")
+
+
+def delivery(request):
+    return render(request, "delivery.html")

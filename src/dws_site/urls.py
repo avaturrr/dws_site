@@ -18,11 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from dws_site.views import show_goods_category, home_page
+from dws_site.views import show_goods_category, home_page, detail_good, payment, about_us, delivery
 
 urlpatterns = [
     path("", home_page, name="home_page"),
     path('<slug:category_slug>/', show_goods_category, name='show_goods_category'),
+    path('<slug:category_slug>/<slug:dws_slug>/<int:dws_id>', detail_good, name='detail_good'),
+    path("payment", payment, name="payment"),
+    path("about_us", about_us, name="about_us"),
+    path("delivery", delivery, name="delivery"),
 ]
 
 if settings.DEBUG:

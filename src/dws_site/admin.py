@@ -10,9 +10,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class DwsAdmin(admin.ModelAdmin):
     list_display = ("goods_name", "goods_id", "price")
+    prepopulated_fields = {"slug": ("goods_name",)}
 
-
-#    prepopulated_fields = {"slug": ("goods_name",)}
 
 admin.site.register(Dws, DwsAdmin)
 admin.site.register(Category, CategoryAdmin)

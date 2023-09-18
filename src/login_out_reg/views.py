@@ -13,7 +13,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             #            messages.success(request, f'Ваш аккаунт создан: можно войти на сайт.')
-            return redirect("aaa")
+            return redirect("home_page")
     #        messages.error(request, form.errors)
     #        redirect("registration")
     else:
@@ -29,9 +29,9 @@ def log_in(request):
         form_log = AuthenticationForm(data=request.POST)
         if form_log.is_valid():
             login(request, form_log.get_user())
-        return redirect("aaa")
+        return redirect("home_page")
 
 
 def log_out(request):
     logout(request)
-    return redirect("aaa")
+    return redirect("home_page")

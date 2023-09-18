@@ -15,9 +15,10 @@ class Dws(models.Model):
     manufacturer = models.CharField(verbose_name="производитель")
     transport_model = models.CharField(verbose_name="применяемость")
     cat = models.ForeignKey("Category", on_delete=models.PROTECT,
-                                 verbose_name="категория", related_name="goods")
+                            verbose_name="категория", related_name="goods")
     price = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="цена")
     image = models.ImageField(verbose_name="фото")
+    slug = models.SlugField(max_length=225, unique=True, db_index=True, verbose_name="URL")
 
     def __str__(self):
         return self.goods_name
