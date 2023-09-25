@@ -29,6 +29,6 @@
 
     <p>товаров в корзине {{ len_cart }}</p>
     <p>сумма всего {{ total_sum }}</p>
-    <p><a href="{% url '' %}">оформить заказ</a></p>
+    <p><a href="{% url 'create_order' %}">оформить заказ</a></p>
     {%endblock%}
 

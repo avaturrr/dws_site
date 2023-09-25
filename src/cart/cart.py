@@ -13,7 +13,7 @@ class Cart: #словарь где ключ - айди продукта, зна�
             cart = self.session[CART_SESSION_ID] = {} #добавляем пустые ключ значение
         self.cart = cart #сохраняем в атрибут словарь
 
-    def __iter__(self):
+    def __iter__(self): #
         products_id = self.cart.keys()
         products = Product.objects.filter(id__in=products_id)
         for product in products:
@@ -22,6 +22,12 @@ class Cart: #словарь где ключ - айди продукта, зна�
             item['price'] = Decimal(item['price'])
             item["total_price"] = item["price"] * item["quantity"]
             yield item
+
+    def __len__(self):
+        quantity_item = 0
+        for _ in self.cart:
+            quantity_item += 1
+        return quantity_item
 
     def add(self, product, quantity=1, update_quantity=False):
         product_id = product.id #получаем айдишник товара
@@ -35,11 +41,14 @@ class Cart: #словарь где ключ - айди продукта, зна�
         self.save()
 
     def save(self):
-        self.session[CART_SESSION_ID] = self.cart
+        self.session[CART_SESSION_ID] = self.cart #
         self.session.modified = True
 
     def delete(self, product_id):
         del self.cart[product_id]
         self.save()
 
+    def clean_cart(self):
+        del self.session[CART_SESSION_ID] #
+        self.session.modified = True #
 

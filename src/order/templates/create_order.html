@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+{% block title %}Оформление заказа{% endblock %}
+{% block content %}
+<form action="{% url 'create_order' %}" method="POST">
+    {% csrf_token %}
+    {{ form_for_order.as_p }}
+    <input type="submit" value="отправить заказ">
+</form>
+{% endblock %}

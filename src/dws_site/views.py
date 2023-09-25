@@ -43,3 +43,7 @@ def about_us(request):
 
 def delivery(request):
     return render(request, "delivery.html")
+
+
+def blog(request):
+    return render(request, "blog.html")

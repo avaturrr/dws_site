@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "dws_site",
     "login_out_reg",
-    "cart"
+    "cart",
+    "order"
 ]
 
 MIDDLEWARE = [

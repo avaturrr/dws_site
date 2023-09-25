@@ -17,9 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from order.views import create_order
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("login_out_reg.urls")),
-    path("", include("dws_site.urls")),
-    path("", include("cart.urls"))
+    path("create_order", create_order, name="create_order")
 ]

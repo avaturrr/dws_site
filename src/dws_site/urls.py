@@ -18,7 +18,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from dws_site.views import show_product_category, home_page, detail_product, payment, about_us, delivery
+from dws_site.views import show_product_category, home_page, detail_product, \
+    payment, about_us, delivery, blog
 
 urlpatterns = [
     path("", home_page, name="home_page"),
@@ -28,6 +29,7 @@ urlpatterns = [
     path("payment", payment, name="payment"),
     path("about_us", about_us, name="about_us"),
     path("delivery", delivery, name="delivery"),
+    path("blog", blog, name="blog"),
 ]
 
 if settings.DEBUG:
