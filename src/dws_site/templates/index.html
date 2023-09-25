@@ -1,29 +1,21 @@
 {% extends "main.html"%}
-{%block title%}DWS{%endblock%}
+{%block title%}Home{%endblock%}
 {%block content%}
-{% if user.is_authenticated %}
-    личный кабинет
-    <a href="{% url 'log_out'%}">Logout</a>
-{% else %}
-    <a href="{% url 'log_in'%}">Login</a>
-    <a href="{% url 'registration'%}">Registration</a>
-{% endif %}
-    корзина
-    <br>
-    <a href="{% url 'about_us'%}">О нас</a>
-    <a href="{% url 'payment'%}">Оплата</a>
-    <a href="{% url 'delivery'%}">Доставка</a>
-<!--ДОДЕЛАТЬ-->
 <p>
     <a href="{% url 'home_page' %}">Всё</a>
     {% for category in categories %}
-    <a href="{% url 'show_goods_category' category_slug=category.slug%}">{{ category.name }}</a>
+    <a href="{% url 'show_product_category' category_slug=category.slug%}">{{ category.name }}</a>
     {% endfor %}
 </p>
-{% for dws in dwses %}
-<h5><a href="{% url 'detail_good' dws_id=dws.id dws_slug=dws.slug category_slug=dws.cat.slug %}">Название двигателя: {{ dws.goods_name }} </a>></h5>
-<p>Артикул: {{ dws.goods_id }}</p>
-<p>Цена: {{ dws.price }}</p>
-<p>Фото: <img src="{{ dws.image.url }}"></p>
+{% for product in products %}
+<h5><a href="{% url 'detail_product' product_id=product.id product_slug=product.slug category_slug=product.cat.slug %}">Название двигателя: {{ product.product_name }} </a>></h5>
+<p>Артикул: {{ product.product_art }}</p>
+<p>Цена: {{ product.price }}</p>
+<p>Фото: <img src="{{ product.image.url }}"></p>
+<form action="{% url 'cart_add' product_id=product.id %}" method='POST'>
+{{ cart_product_form }}
+    {% csrf_token %}
+    <input type="submit" value="Добавить в корзину">
+</form>
 {% endfor %}
 {%endblock%}

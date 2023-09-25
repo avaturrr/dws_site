@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("login_out_reg.urls")),
     path("", include("dws_site.urls")),
-    path("", include("cart.urls")),
-    path("", include("order.urls"))
+    path("", include("cart.urls"))
 ]

@@ -1,0 +1,34 @@
+{% extends "main.html"%}
+{%block title%}Cart{%endblock%}
+{%block content%}
+<table>
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Товар</th>
+        <th>Артикул</th>
+        <th>Цена за единицу</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+        <th>Убрать из корзины</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+    <tr>
+        <td> сделают на фронт-энде </td>
+        <td> <img src="{{ item.product.image.url }}"> {{ item.product.product_name }}</td>
+        <td> {{ item.product.product_art }}</td>
+        <td> {{ item.price }}</td>
+        <td> {{ item.quantity }}</td>
+        <td> {{ item.total_price }}</td>
+        <td> <a href="{% url 'product_delete' product_id=item.product.id %}">убрать из корзины</a> </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+    <p>товаров в корзине {{ len_cart }}</p>
+    <p>сумма всего {{ total_sum }}</p>
+    <p><a href="{% url '' %}">оформить заказ</a></p>
+    {%endblock%}
+

@@ -14,21 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
+
 from django.urls import path
 
-from dws_site.views import show_product_category, home_page, detail_product, payment, about_us, delivery
+from login_out_reg.views import registration, log_in, log_out
+
+from cart.views import cart_add, cart_detail, product_delete
 
 urlpatterns = [
-    path("", home_page, name="home_page"),
-    path('<slug:category_slug>/', show_product_category, name='show_product_category'),
-    path('<slug:category_slug>/<slug:product_slug>/<int:product_id>',
-         detail_product, name='detail_product'),
-    path("payment", payment, name="payment"),
-    path("about_us", about_us, name="about_us"),
-    path("delivery", delivery, name="delivery"),
-]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("cart", cart_detail, name="cart_detail"),
+    path("cart_add/<int:product_id>", cart_add, name="cart_add"),
+    path("product_delete/<int:product_id>", product_delete, name="product_delete"),
+]

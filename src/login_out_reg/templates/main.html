@@ -5,6 +5,19 @@
     <title>{%block title%}{%endblock%}</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+личный кабинет
+<a href="{% url 'log_out'%}">Logout</a>
+{% else %}
+<a href="{% url 'log_in'%}">Login</a>
+<a href="{% url 'registration'%}">Registration</a>
+{% endif %}
+<a href="{% url 'cart_detail'%}">корзина</a>
+<br>
+<a href="{% url 'home_page' %}">Главная</a>
+<a href="{% url 'about_us'%}">О нас</a>
+<a href="{% url 'payment'%}">Оплата</a>
+<a href="{% url 'delivery'%}">Доставка</a>
 {%block content%}
 {%endblock%}
 </body>

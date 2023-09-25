@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "dws_site",
-    "login_out_reg"
+    "login_out_reg",
+    "cart"
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/dws_site/media/'
 MEDIA_ROOT = BASE_DIR / "dws_site" / 'media'
+
+CART_SESSION_ID = 'cart'
+
