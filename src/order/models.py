@@ -2,6 +2,8 @@ from django.db import models
 
 from dws_site.models import Product
 
+from login_out_reg.models import Profile
+
 
 # Create your models here.
 
@@ -18,6 +20,7 @@ class Order(models.Model):
     bank_details = models.CharField(verbose_name="банковские реквизиты")
     comments = models.TextField(verbose_name="комментарии к заказу")
     created_at = models.DateTimeField(verbose_name="время создания", auto_now_add=True)
+    profile = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name="orders", null=True)
 
     def __str__(self):
         return self.company_name

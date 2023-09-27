@@ -6,7 +6,7 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-личный кабинет
+<a href="{% url 'profile'%}">Личный кабинет</a>
 <a href="{% url 'log_out'%}">Logout</a>
 {% else %}
 <a href="{% url 'log_in'%}">Login</a>

@@ -1,0 +1,20 @@
+{% extends "main.html"%}
+{%block title%}Личный кабинет{%endblock%}
+{%block content%}
+<p>Забыли пароль?</p>
+<p><a href="{% url 'add_profile_data' %}">Добавить данные в профиль </a></p>
+{% if profile_exist == "1" %}
+<p>ваши данные</p>
+<p>название организации {{company_name}}</p>
+<p>УНП {{company_tax_id}}</p>
+<p>юридический адрес {{legal_adress}}</p>
+<p>почтовый адрес {{post_adress}}</p>
+<p>эл адрес {{company_email}}</p>
+<p>телефон для связи {{phone_number}}</p>
+<p>адрес доставки {{delivery_adress}}</p>
+<p>должность для договора {{position}}</p>
+<p>ФИО для договора {{position_name}}</p>
+<p>банковские реквизиты {{bank_details}}</p>
+{% endif %}
+<p>предыдущие заказы</p>
+{%endblock%}

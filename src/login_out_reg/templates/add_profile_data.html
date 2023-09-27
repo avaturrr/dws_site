@@ -1,0 +1,10 @@
+{% extends "main.html"%}
+{%block title%}Личный кабинет{%endblock%}
+{%block content%}
+<p>Забыли пароль?</p>
+<form action="{% url 'add_profile_data' %}" method="POST">
+    {% csrf_token %}
+    {{ form_for_profile.as_p }}
+    <input type="submit" name="сохранить">
+</form>
+{%endblock%}

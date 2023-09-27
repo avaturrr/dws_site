@@ -1,15 +1,25 @@
 from django import forms
 
+from order.models import Order
 
-class OrderForm(forms.Form):
-    company_name = forms.CharField(max_length=100, label="название организации")
-    company_tax_id = forms.CharField(max_length=15, label="УНП")
-    legal_adress = forms.CharField(widget=forms.Textarea, label="юридический адрес")
-    post_adress = forms.CharField(widget=forms.Textarea, label="почтовый адрес")
-    company_email = forms.EmailField(max_length=100, label="эл почта")
-    phone_number = forms.CharField(max_length=100, label="телефон для связи")
-    delivery_adress = forms.CharField(widget=forms.Textarea, label="адрес доставки")
-    position = forms.CharField(max_length=200, label="должность для договора")
-    position_name = forms.CharField(max_length=100, label="ФИО для договора")
-    bank_details = forms.CharField(widget=forms.Textarea, label="банковские реквизиты")
-    comments = forms.CharField(widget=forms.Textarea, label="комментарии к заказу")
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ["company_name", "company_tax_id", "legal_adress", "post_adress",
+                  "company_email", "phone_number", "delivery_adress", "position",
+                  "position_name", "bank_details", "comments"]
+
+    def __init__(self, profile=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if profile:
+            self.fields["company_name"].initial = profile.company_name
+            self.fields["company_tax_id"].initial = profile.company_tax_id
+            self.fields["legal_adress"].initial = profile.legal_adress
+            self.fields["post_adress"].initial = profile.post_adress
+            self.fields["company_email"].initial = profile.company_email
+            self.fields["phone_number"].initial = profile.phone_number
+            self.fields["delivery_adress"].initial = profile.delivery_adress
+            self.fields["position"].initial = profile.position
+            self.fields["position_name"].initial = profile.position_name
+            self.fields["bank_details"].initial = profile.bank_details
