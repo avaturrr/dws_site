@@ -1,0 +1,30 @@
+{% extends "main.html"%}
+{%block title%}Детали заказа{%endblock%}
+{%block content%}
+<table>
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Товар</th>
+        <th>Артикул</th>
+        <th>Цена за единицу</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in order_items %}
+    <tr>
+        <td> сделают на фронт-энде </td>
+        <td> <img src="{{ item.product.image.url }}"> {{ item.product.product_name }}</td>
+        <td> {{ item.product.product_art }}</td>
+        <td> {{ item.price }}</td>
+        <td> {{ item.quantity }}</td>
+        <td> {{ item.total_price }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+    <p>сумма всего {{ total_sum }}</p>
+    {%endblock%}
+

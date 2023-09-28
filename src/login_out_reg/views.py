@@ -74,6 +74,9 @@ def profile(request):
                     "profile_exist": "1"}
         else:
             data = {"profile_exist": "0"}
+        used_profile = Profile.objects.get(user=request.user)
+        order_history = Order.objects.filter(profile=used_profile)
+        data["order_history"] = order_history
         return render(request, "profile.html", context=data)
 
 
@@ -93,3 +96,13 @@ def delete_user(request):
     user_for_delete = request.user
     user_for_delete.delete()
     return redirect("home_page")
+
+
+def detail_past_order(request, order_id):
+    if request.method == "GET":
+        order_items = OrderItem.objects.filter(order=order_id).all()
+        total_sum = 0
+        for item in order_items:
+            total_sum += item.total_price
+        return render(request, "order_detail.html", {"order_items": order_items,
+                                                     "total_sum":total_sum })

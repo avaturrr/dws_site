@@ -19,7 +19,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from django.urls import path
 
 from login_out_reg.views import registration, log_in, log_out, \
-    profile, add_profile_data, edit_profile, delete_user
+    profile, add_profile_data, edit_profile, delete_user, detail_past_order
 
 urlpatterns = [
 
@@ -30,6 +30,7 @@ urlpatterns = [
     path("add_profile_data", add_profile_data, name="add_profile_data"),
     path("edit_profile", edit_profile, name="edit_profile"),
     path("delete_user", delete_user, name="delete_user"),
+    path("detail_past_order", detail_past_order, name="detail_past_order"),
     path('reset_password/', PasswordResetView.as_view(template_name="reset_password.html"), name='reset_password'),
     path('reset_password_sent/', PasswordResetDoneView.as_view(template_name="password_reset_sent.html"),
          name='password_reset_done'),
