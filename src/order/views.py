@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -22,18 +23,23 @@ from order.models import OrderItem
 def create_order(request):
     cart = Cart(request)
     if request.method == "GET":
-        if len(cart) != 0:
-            try:
-                used_profile = Profile.objects.get(user=request.user)
-            except ObjectDoesNotExist:
-                used_profile = None
-            except TypeError:
-                used_profile = None
+        now = datetime.datetime.now()
+        hour_now = now.hour
+        if 7 < hour_now < 19:
+            if len(cart) != 0:
+                try:
+                    used_profile = Profile.objects.get(user=request.user)
+                except ObjectDoesNotExist:
+                    used_profile = None
+                except TypeError:
+                    used_profile = None
 
-            form_for_order = OrderForm(used_profile)
-            return render(request, "create_order.html", context={"form_for_order": form_for_order})
+                form_for_order = OrderForm(used_profile)
+                return render(request, "create_order.html", context={"form_for_order": form_for_order})
+            else:
+                return HttpResponse("Корзина пуста! Добавьте товары")
         else:
-            return HttpResponse("Корзина пуста! Добавьте товары")
+            return HttpResponse("Невозможно сделать заказ. Заказы принимаются с 7.00 по 19.00")
     else:
         try:  # если у пользователя нет профиля или нет пользователя, поле будет пустым
             used_profile = Profile.objects.get(user=request.user)
@@ -76,10 +82,3 @@ def create_order(request):
         os.remove("invoice.docx")
         return redirect("home_page")
 
-
-# def update_quantity(request):
-#     cart = Cart.request()
-#     for item in cart:
-#         OrderItem.objects.create(order=1, product=item["product"],
-#                                  price=item["price"], quantity=item["quantity"],
-#                                  total_sum=item["total_price"])

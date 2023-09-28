@@ -21,5 +21,4 @@ from order.views import create_order
 
 urlpatterns = [
     path("create_order", create_order, name="create_order"),
-#    path("update_quantity", update_quantity, name="update_quantity")
 ]

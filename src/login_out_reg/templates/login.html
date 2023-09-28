@@ -6,6 +6,5 @@
     {{ form.as_p }}
     <button type="submit">submit</button>
 </form>
-<p>Забыли пароль?</p>
-<!--ДОДЕЛАТЬ-->
+<p><a href="{% url 'reset_password' %}">Забыли пароль?</a></p>
 {%endblock%}
