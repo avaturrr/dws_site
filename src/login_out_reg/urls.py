@@ -17,7 +17,8 @@ Including another URLconf
 
 from django.urls import path
 
-from login_out_reg.views import registration, log_in, log_out, profile, add_profile_data
+from login_out_reg.views import registration, log_in, log_out, \
+    profile, add_profile_data, edit_profile, delete_user
 
 urlpatterns = [
 
@@ -26,4 +27,6 @@ urlpatterns = [
     path("logout", log_out, name="log_out"),
     path("profile", profile, name="profile"),
     path("add_profile_data", add_profile_data, name="add_profile_data"),
+    path("edit_profile", edit_profile, name="edit_profile"),
+    path("delete_user", delete_user, name="delete_user"),
 ]

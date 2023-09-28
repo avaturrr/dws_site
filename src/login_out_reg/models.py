@@ -14,7 +14,7 @@ class Profile(models.Model):
     position_name = models.CharField(verbose_name="ФИО для договора")
     bank_details = models.CharField(verbose_name="банковские реквизиты")
     created_at = models.DateTimeField(verbose_name="время создания", auto_now_add=True)
-    user = models.OneToOneField(User, on_delete=models.PROTECT,
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name="profils", verbose_name="пользователь")
 
     def __str__(self):

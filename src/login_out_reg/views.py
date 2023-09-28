@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -8,6 +9,10 @@ from login_out_reg.forms import RegisterUserForm
 from order.forms import OrderForm
 
 from login_out_reg.models import Profile
+
+from order.models import Order, OrderItem
+
+from login_out_reg.forms import ProfileForm
 
 
 # Create your views here.
@@ -45,19 +50,15 @@ def log_out(request):
 
 def add_profile_data(request):
     if request.method == "GET":
-        form_for_profile = OrderForm()
+        form_for_profile = ProfileForm(profile=None)
         return render(request, "add_profile_data.html", {"form_for_profile": form_for_profile})
     else:
-        form_for_profile = OrderForm(request.POST)
+        used_profil = None
+        form_for_profile = ProfileForm(used_profil, request.POST)
         if form_for_profile.is_valid():
-            cd = form_for_profile.cleaned_data
-            Profile.objects.create(company_name=cd["company_name"],
-                                   company_tax_id=cd["company_tax_id"],
-                                   legal_adress=cd["legal_adress"], post_adress=cd["post_adress"],
-                                   company_email=cd["company_email"], phone_number=cd["phone_number"],
-                                   delivery_adress=cd["delivery_adress"], position=cd["position"],
-                                   position_name=cd["position_name"], bank_details=cd["bank_details"],
-                                   user=request.user)
+            data_for_save = form_for_profile.save(commit=False)
+            data_for_save.user = request.user
+            data_for_save.save()
         return redirect("profile")
 
 
@@ -74,3 +75,21 @@ def profile(request):
         else:
             data = {"profile_exist": "0"}
         return render(request, "profile.html", context=data)
+
+
+def edit_profile(request):
+    used_profile = Profile.objects.get(user=request.user)
+    if request.method == "GET":
+        form_for_profile = ProfileForm(used_profile)
+        return render(request, "edit_profile_data.html", {"form_for_profile": form_for_profile})
+    else:
+        form_for_profile = ProfileForm(used_profile, request.POST, instance=used_profile)
+        if form_for_profile.is_valid():
+            form_for_profile.save()
+        return redirect("profile")
+
+
+def delete_user(request):
+    user_for_delete = request.user
+    user_for_delete.delete()
+    return redirect("home_page")

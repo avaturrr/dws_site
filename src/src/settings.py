@@ -144,3 +144,8 @@ MEDIA_ROOT = BASE_DIR / "dws_site" / 'media'
 
 CART_SESSION_ID = 'cart'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'tmsprojectdws@gmail.com'
+EMAIL_HOST_PASSWORD = 'nyncoeqbnulvilai'
+EMAIL_USE_SSL = True

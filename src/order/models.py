@@ -20,6 +20,7 @@ class Order(models.Model):
     bank_details = models.CharField(verbose_name="банковские реквизиты")
     comments = models.TextField(verbose_name="комментарии к заказу")
     created_at = models.DateTimeField(verbose_name="время создания", auto_now_add=True)
+    #возможно надо юзера добавить, но не факт
     profile = models.ForeignKey(Profile, on_delete=models.PROTECT, related_name="orders", null=True)
 
     def __str__(self):
