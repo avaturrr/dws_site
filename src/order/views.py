@@ -15,6 +15,8 @@ from src.settings import EMAIL_HOST_USER
 
 from docxtpl import DocxTemplate
 
+from order.models import OrderItem
+
 
 # Create your views here.
 def create_order(request):
@@ -25,24 +27,32 @@ def create_order(request):
                 used_profile = Profile.objects.get(user=request.user)
             except ObjectDoesNotExist:
                 used_profile = None
+            except TypeError:
+                used_profile = None
 
             form_for_order = OrderForm(used_profile)
             return render(request, "create_order.html", context={"form_for_order": form_for_order})
         else:
             return HttpResponse("Корзина пуста! Добавьте товары")
     else:
-        try:  # если у пользователя нет профиля, передастся нон
+        try:  # если у пользователя нет профиля или нет пользователя, поле будет пустым
             used_profile = Profile.objects.get(user=request.user)
         except ObjectDoesNotExist:
+            used_profile = None
+        except TypeError:
             used_profile = None
         form_for_order = OrderForm(used_profile, request.POST)
         if form_for_order.is_valid():
             data_for_save = form_for_order.save(commit=False)
-            try:  # если у пользователя нет профиля, поле будет пустым
+            try:  # если у пользователя нет профиля или нет пользователя, поле будет пустым
                 data_for_save.profile = used_profile
             except AttributeError:
                 pass
             data_for_save.save()
+            for item in cart:
+                OrderItem.objects.create(order=data_for_save, product=item["product"],
+                                         price=item["price"], quantity=item["quantity"],
+                                         total_sum=item["total_price"])
             cart.clean_cart()
         # заполнение файла
         doc = DocxTemplate("order/text_files/invoice_template.docx")
@@ -65,3 +75,11 @@ def create_order(request):
         # удаляем созданный из шаблона файл
         os.remove("invoice.docx")
         return redirect("home_page")
+
+
+# def update_quantity(request):
+#     cart = Cart.request()
+#     for item in cart:
+#         OrderItem.objects.create(order=1, product=item["product"],
+#                                  price=item["price"], quantity=item["quantity"],
+#                                  total_sum=item["total_price"])

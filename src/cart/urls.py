@@ -17,8 +17,6 @@ Including another URLconf
 
 from django.urls import path
 
-from login_out_reg.views import registration, log_in, log_out
-
 from cart.views import cart_add, cart_detail, product_delete
 
 urlpatterns = [
