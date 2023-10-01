@@ -2,6 +2,7 @@ from _decimal import Decimal
 
 from src.settings import CART_SESSION_ID
 
+
 from dws_site.models import Product
 
 

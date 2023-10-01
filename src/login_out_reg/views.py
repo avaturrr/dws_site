@@ -1,12 +1,9 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from login_out_reg.forms import RegisterUserForm
-
-from order.forms import OrderForm
 
 from login_out_reg.models import Profile
 
@@ -103,6 +100,6 @@ def detail_past_order(request, order_id):
         order_items = OrderItem.objects.filter(order=order_id).all()
         total_sum = 0
         for item in order_items:
-            total_sum += item.total_price
+            total_sum += item.total_sum
         return render(request, "order_detail.html", {"order_items": order_items,
                                                      "total_sum":total_sum })

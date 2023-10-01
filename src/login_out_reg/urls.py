@@ -30,12 +30,12 @@ urlpatterns = [
     path("add_profile_data", add_profile_data, name="add_profile_data"),
     path("edit_profile", edit_profile, name="edit_profile"),
     path("delete_user", delete_user, name="delete_user"),
-    path("detail_past_order", detail_past_order, name="detail_past_order"),
+    path("detail_past_order/<int:order_id>", detail_past_order, name="detail_past_order"),
     path('reset_password/', PasswordResetView.as_view(template_name="reset_password.html"), name='reset_password'),
     path('reset_password_sent/', PasswordResetDoneView.as_view(template_name="password_reset_sent.html"),
          name='password_reset_done'),
     path('reset/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name="password_reset_form.html"),
          name='password_reset_confirm'),
-        path('reset_password_complete/', PasswordResetCompleteView.as_view(template_name="password_reset_done.html"),
+    path('reset_password_complete/', PasswordResetCompleteView.as_view(template_name="password_reset_done.html"),
          name='password_reset_complete')
 ]
